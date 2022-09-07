@@ -5,7 +5,7 @@ const fs = require("fs").promises;
 const yargs = require("yargs");
 const path = require("path");
 const helpers = require("./helpers");
-const WalletProcess = require("integration_tests/helpers/walletProcess");
+const WalletProcess = require("./process/walletProcess");
 
 const RECOVERY_COMPLETE_REGEXP = /Recovery complete! Scanned (\d+) blocks in/;
 const RECOVERY_WORTH_REGEXP = /worth ([0-9.]+) (µ?T)/;
@@ -67,8 +67,9 @@ async function run(options = {}) {
       network: "esmeralda",
       grpc_console_wallet_address: "/ip4/127.0.0.1/tcp/18111",
       baseDir: options.baseDir || "./temp/base-nodes/",
+      cargoDir: options.cargoDir || __dirname,
     },
-    "../../integration_tests/log4rs/wallet.yml",
+    "./log4rs/wallet.yml",
     options.seedWords
   );
 

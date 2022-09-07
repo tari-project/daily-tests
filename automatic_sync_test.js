@@ -5,7 +5,7 @@ const fs = require("fs").promises;
 const yargs = require("yargs");
 const path = require("path");
 const helpers = require("./helpers");
-const BaseNodeProcess = require("integration_tests/helpers/baseNodeProcess");
+const BaseNodeProcess = require("./process/baseNodeProcess");
 
 const NETWORK = "esmeralda";
 
@@ -56,7 +56,7 @@ async function main() {
 }
 
 async function run(options) {
-  const baseNode = new BaseNodeProcess("compile", true);
+  const baseNode = new BaseNodeProcess("compile", true, {cargoDir: options.cargoDir});
   await baseNode.init();
 
   let config = {
