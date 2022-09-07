@@ -1,11 +1,11 @@
 // Copyright 2022 The Tari Project
 // SPDX-License-Identifier: BSD-3-Clause
 
-const WalletProcess = require("integration_tests/helpers/walletProcess");
-const WalletClient = require("integration_tests/helpers/walletClient");
-const { getFreePort } = require("integration_tests/helpers/util");
-const { sleep } = require("integration_tests/helpers/util");
-const { PaymentType } = require("integration_tests/helpers/types");
+const WalletProcess = require("./process/walletProcess");
+const WalletClient = require("./process/walletClient");
+const { getFreePort } = require("./process/util");
+const { sleep } = require("./process/util");
+const { PaymentType } = require("./process/types");
 const debug = require("debug")("washing-machine");
 const { DateTime, Interval } = require("luxon");
 const { sendWebhookNotification, getWebhookUrl, yargs } = require("./helpers");

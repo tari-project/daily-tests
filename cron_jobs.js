@@ -31,7 +31,7 @@ function notify(message) {
   }
 }
 
-async function runWalletRecoveryTest(instances, path, seedWords) {
+async function runWalletRecoveryTest(instances, path, seedWords, opts = {}) {
   notify("🚀 Wallet recovery check has begun 🚀");
 
   const baseDir = __dirname + path;
@@ -59,6 +59,7 @@ async function runWalletRecoveryTest(instances, path, seedWords) {
       log: LOG_FILE,
       numWallets: instances,
       baseDir,
+      cargoDir:opts.cargoDir,
     });
 
     notify(
@@ -77,7 +78,7 @@ ${logLines.join("\n")}
   }
 }
 
-async function runBaseNodeSyncTest(syncType) {
+async function runBaseNodeSyncTest(syncType, opts = {}) {
   const node_pub_key =
     "b0c1f788f137ba0cdc0b61e89ee43b80ebf5cca4136d3229561bf11eba347849";
   const node_address = "/ip4/3.8.193.254/tcp/18189";
@@ -104,6 +105,7 @@ async function runBaseNodeSyncTest(syncType) {
       log: LOG_FILE,
       syncType,
       baseDir,
+      cargoDir:opts.cargoDir,
       forceSyncPeers: [`${node_pub_key}::${node_address}`],
     });
 
@@ -133,16 +135,16 @@ async function main() {
     console.error("🚨 Failed to update git repo");
     console.error(err);
   });
-
+ const cargoDir = process.env.CARGO_DIR || __dirname;
   // ------------------------- CRON ------------------------- //
   let seedWords = process.env.WALLET_RECOVERY_SEED_WORDS || "parade jelly sample worth bind release forest snack job mobile divide ranch fee raccoon begin awful source thank check leaf vibrant stove material field";
-  new CronJob("0 2 * * *", () => runWalletRecoveryTest(1, "/temp/wallet-recovery", seedWords)).start();
-  new CronJob("0 4 * * *", () => runWalletRecoveryTest(1, "/temp/wallet-recovery2", "divorce toy raw junk analyst giggle little artefact butter gain intact degree upgrade dwarf design right mean model great best swift program mammal curtain")).start();
+  new CronJob("0 2 * * *", () => runWalletRecoveryTest(1, "/temp/wallet-recovery", seedWords, {cargoDir})).start();
+  new CronJob("0 4 * * *", () => runWalletRecoveryTest(1, "/temp/wallet-recovery2", "divorce toy raw junk analyst giggle little artefact butter gain intact degree upgrade dwarf design right mean model great best swift program mammal curtain", {cargoDir})).start();
   //new CronJob("30 7 * * *", () => runWalletRecoveryTest(5)).start();
   new CronJob("0 1 * * *", () =>
-    runBaseNodeSyncTest(SyncType.Archival)
+    runBaseNodeSyncTest(SyncType.Archival, {cargoDir})
   ).start();
-  new CronJob("30 1 * * *", () => runBaseNodeSyncTest(SyncType.Pruned)).start();
+  new CronJob("30 1 * * *", () => runBaseNodeSyncTest(SyncType.Pruned, {cargoDir})).start();
   new CronJob("0 0 * * *", () =>
     git
       .reset(__dirname)

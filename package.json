@@ -8,9 +8,20 @@
     "cron": "^1.8.2",
     "debug": "^4.3.2",
     "eslint-config-prettier": "^8.3.0",
-    "integration_tests": "file:../../integration_tests",
     "luxon": "^2.0.2",
-    "yargs": "^17.0.1"
+    "yargs": "^17.0.1",
+    "blakejs": "^1.2.1",
+    "varint": "^6.0.0",
+    "dateformat": "3.0.3",
+    "chai": "^4.3.6",
+    "csv-parser": "^3.0.0",
+    "tari_crypto": "^0.14.0",
+    "sha3": "^2.1.4",
+    "clone-deep": "^4.0.1",
+    "json5": "^2.2.1",
+
+    "wallet-grpc-client": "file:./clients/wallet_grpc_client",
+    "base-node-grpc-client": "file:./clients/base_node_grpc_client"
   },
   "scripts": {
     "test": "mocha",
