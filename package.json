@@ -18,6 +18,7 @@
     "tari_crypto": "^0.14.0",
     "sha3": "^2.1.4",
     "clone-deep": "^4.0.1",
+    "json5": "^2.2.1",
 
     "wallet-grpc-client": "file:./clients/wallet_grpc_client",
     "base-node-grpc-client": "file:./clients/base_node_grpc_client"
